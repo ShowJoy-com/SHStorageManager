@@ -1,8 +1,8 @@
 # 存储模块
 
-提供内存的缓存和磁盘存储
+为Android App提供的存储模块，包括内存的缓存和磁盘存储，以module和key结合为维度进行存储，支持多种类型。
 
-     compile 'com.showjoy.android:storage:1.0.0'
+     compile 'com.showjoy.android:storage:1.0.0'
 
 
 ## 使用介绍
@@ -27,3 +27,5 @@
     
     //获取数据
     int theme = SHStorageManager.get("setting", "theme", 0);
+    
+    boolean isOk = SHStorageManager.get("setting", "isOk", false);
