@@ -2,7 +2,8 @@
 
 为Android App提供的存储模块，包括内存的缓存和磁盘存储，以module和key结合为维度进行存储，支持多种类型。
 
-     compile 'com.showjoy.android:storage:1.0.0'
+     
+     compile 'com.showjoy.android:storage:1.0.0'
 
 
 ## 使用介绍
