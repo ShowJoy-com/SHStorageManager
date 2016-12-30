@@ -4,6 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.LruCache;
 
+import com.showjoy.android.storage.util.JsonUtils;
 import com.showjoy.android.storage.util.SharedPreferencesManager;
 
 import java.util.HashMap;
@@ -197,6 +198,16 @@ public class SHStorageManager {
         SharedPreferencesManager.getInstance(module).put(key, value);
     }
 
+    /**
+     * 存储
+     * @param module
+     * @param key
+     * @param value
+     */
+    public static void putToDisk(String module, String key, Object value) {
+        putToCache(module, key, value);
+        SharedPreferencesManager.getInstance(module).put(key, JsonUtils.toJson(value));
+    }
 
     /////Get
 
@@ -204,19 +215,29 @@ public class SHStorageManager {
      * 获取
      * @param module
      * @param key
-     * @param defaultValue
+     * @param tClass
      */
-    public static <T> T get(String module, String key, T defaultValue) {
+    public static <T> T get(String module, String key, Class<T> tClass) {
         if (TextUtils.isEmpty(module)) {
-            return defaultValue;
+            return null;
         }if (TextUtils.isEmpty(key)) {
-            return defaultValue;
+            return null;
         }
         Object v = getFromCache(module, key);
         if (null == v) {
-            return defaultValue;
+            String s = SharedPreferencesManager.getInstance(module).getString(key, "");
+            if (TextUtils.isEmpty(s)) {
+                return null;
+            }
+            T value = JsonUtils.parseObject(s, tClass);
+            putToCache(module, key, value);
+            return value;
         }
-        return (T) v;
+        try {
+            return (T) v;
+        }catch (Exception e) {
+            return null;
+        }
     }
 
     /**
