@@ -53,6 +53,10 @@ public class SHStorageManager {
         }
     }
 
+    public static void removeFromDisk(String module) {
+        SharedPreferencesManager.getInstance(module).clear();
+    }
+
     public static void removeFromCache(String module, String key) {
         if (lruCacheMap.containsKey(module)) {
             lruCacheMap.get(module).remove(key);
