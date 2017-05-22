@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * SharedPreferences 操作类
@@ -18,6 +20,9 @@ public class SharedPreferencesManager {
     static Context sAppContext;
 
     static Map<String, SharedPreferencesManager> sharedPreferencesManagerMap;
+
+    // 线程池
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static void init(Context appContext) {
         sAppContext = appContext;
@@ -54,10 +59,17 @@ public class SharedPreferencesManager {
      * @param key
      * @param value
      */
-    public void put(String key, String value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(key, value);
-        editor.apply();
+    public void put(final String key, final String value) {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString(key, value);
+                    editor.commit();
+                }
+            });
+        }
     }
 
     public String getString(String key, String defaultValue) {
@@ -82,10 +94,17 @@ public class SharedPreferencesManager {
      * @param key
      * @param value
      */
-    public void put(String key, boolean value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(key, value);
-        editor.apply();
+    public void put(final String key, final boolean value) {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean(key, value);
+                    editor.commit();
+                }
+            });
+        }
     }
 
     public boolean getBoolean(String key, boolean defaultValue) {
@@ -110,10 +129,17 @@ public class SharedPreferencesManager {
      * @param key
      * @param value
      */
-    public void put(String key, int value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(key, value);
-        editor.apply();
+    public void put(final String key, final int value) {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt(key, value);
+                    editor.commit();
+                }
+            });
+        }
     }
 
     public int getInt(String key, int defaultValue) {
@@ -138,10 +164,17 @@ public class SharedPreferencesManager {
      * @param key
      * @param value
      */
-    public void put(String key, long value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putLong(key, value);
-        editor.apply();
+    public void put(final String key, final long value) {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putLong(key, value);
+                    editor.commit();
+                }
+            });
+        }
     }
 
     public long getLong(String key, long defaultValue) {
@@ -166,10 +199,17 @@ public class SharedPreferencesManager {
      * @param key
      * @param value
      */
-    public void put(String key, float value) {
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putFloat(key, value);
-        editor.apply();
+    public void put(final String key, final float value) {
+        if (!executorService.isShutdown()) {
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putFloat(key, value);
+                    editor.commit();
+                }
+            });
+        }
     }
 
     public float getFloat(String key, float defaultValue) {
