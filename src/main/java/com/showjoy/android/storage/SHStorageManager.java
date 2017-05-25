@@ -21,7 +21,7 @@ public class SHStorageManager {
 
     private static Map<String, LruCache<String, Object>> lruCacheMap;
 
-    private static int sMaxSize = 10;
+    private static int sMaxSize = 20;
 
     public static void init(Context context, int maxSize) {
         appContext = context;

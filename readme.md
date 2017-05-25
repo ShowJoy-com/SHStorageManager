@@ -11,7 +11,7 @@
 
 #### 1、aar已上传Jcenter，只要如下gradle依赖即可
 
-    compile 'com.showjoy.android:storage:1.0.5'
+    compile 'com.showjoy.android:storage:2.0.0'
     
 #### 2、首先在application的onCreate里调用init
 
