@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -40,6 +43,20 @@ public class SharedPreferencesManager {
 
     private SharedPreferencesManager(Context appContext, String filename) {
         sharedPreferences = appContext.getSharedPreferences(filename, Activity.MODE_PRIVATE);
+    }
+
+    public List<String> getAllKeys() {
+        Map<String, ?> allData = sharedPreferences.getAll();
+        List<String> allKeys = new ArrayList<>();
+        if (null != allData) {
+            Set<String> keys = allData.keySet();
+            if (null != keys) {
+                for (String key : keys) {
+                    allKeys.add(key);
+                }
+            }
+        }
+        return allKeys;
     }
 
     /**

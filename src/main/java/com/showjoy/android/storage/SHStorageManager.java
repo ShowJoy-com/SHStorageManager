@@ -8,6 +8,7 @@ import com.showjoy.android.storage.util.JsonUtils;
 import com.showjoy.android.storage.util.SharedPreferencesManager;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -214,6 +215,10 @@ public class SHStorageManager {
     }
 
     /////Get
+
+    public static List<String> getAllKeys(String module) {
+        return SharedPreferencesManager.getInstance(module).getAllKeys();
+    }
 
     /**
      * 获取
